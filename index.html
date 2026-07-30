@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ebenz — Creative Designer &amp; Videographer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0d16;
+    --surface:#10141f;
+    --surface-2:#0d111c;
+    --shadow-dark:#04050a;
+    --shadow-light:#1b2236;
+    --blue:#00e5ff;
+    --blue-dim:#0092ad;
+    --red:#ff2350;
+    --red-deep:#7a0a24;
+    --text:#e9edf9;
+    --text-mid:#93a0c2;
+    --text-dim:#525d7d;
+    --border:#1a2136;
+    --r-lg:28px;
+    --r-md:18px;
+    --r-sm:12px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    background:
+      radial-gradient(ellipse 900px 600px at 12% -5%, rgba(0,229,255,0.09), transparent 60%),
+      radial-gradient(ellipse 900px 700px at 90% 15%, rgba(255,35,80,0.08), transparent 60%),
+      radial-gradient(ellipse 800px 800px at 50% 100%, rgba(0,229,255,0.05), transparent 60%);
+  }
+
+  body::after{
+    content:'';
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    opacity:0.035;
+    background-image:repeating-linear-gradient(0deg, #fff 0px, #fff 1px, transparent 1px, transparent 3px);
+  }
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;position:relative;z-index:1;}
+
+  h1,h2,h3,.font-display{font-family:'Sora',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  ::selection{background:var(--blue);color:#00131a;}
+
+  a{color:inherit;text-decoration:none;}
+
+  /* ---------- neumorphism base ---------- */
+  .neu{
+    background:var(--surface);
+    border-radius:var(--r-md);
+    box-shadow: 8px 8px 18px var(--shadow-dark), -8px -8px 18px var(--shadow-light);
+    border:1px solid rgba(255,255,255,0.02);
+  }
+  .neu-inset{
+    background:var(--surface);
+    border-radius:var(--r-md);
+    box-shadow: inset 5px 5px 12px var(--shadow-dark), inset -5px -5px 12px var(--shadow-light);
+  }
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    backdrop-filter:blur(14px);
+    background:rgba(10,13,22,0.72);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:1120px;margin:0 auto;padding:16px 28px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Sora',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:0.02em;}
+  .brand-mark{width:30px;height:30px;flex-shrink:0;}
+  .nav-links{display:flex;gap:6px;list-style:none;}
+  .nav-links a{
+    font-size:0.85rem;color:var(--text-mid);padding:9px 15px;border-radius:10px;
+    transition:color .25s ease, box-shadow .25s ease;
+  }
+  .nav-links a:hover{color:var(--blue);box-shadow: inset 3px 3px 8px var(--shadow-dark), inset -3px -3px 8px var(--shadow-light);}
+  .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.4rem;cursor:pointer;}
+
+  @media(max-width:760px){
+    .nav-links{
+      position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;background:var(--bg);
+      border-bottom:1px solid var(--border);
+      max-height:0;overflow:hidden;transition:max-height .35s ease;
+      padding:0 20px;
+    }
+    .nav-links.open{max-height:400px;padding:10px 20px 18px;}
+    .nav-toggle{display:block;}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100svh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;position:relative;
+    padding:140px 28px 80px;
+  }
+
+  .rec-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:7px 14px;border-radius:20px;
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;
+    color:var(--red);margin-bottom:34px;
+    box-shadow: inset 3px 3px 8px var(--shadow-dark), inset -3px -3px 8px var(--shadow-light);
+  }
+  .rec-dot{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);animation:pulse 1.4s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.25;}}
+
+  .aperture-holder{width:190px;height:190px;margin-bottom:38px;position:relative;}
+  .aperture-holder svg{width:100%;height:100%;filter:drop-shadow(0 0 18px rgba(0,229,255,0.18));}
+  .blade{
+    transform-origin:100px 100px;
+    fill:#141a2b;
+    stroke:#232c46;
+    stroke-width:1;
+    animation:open-blade 1.6s cubic-bezier(.2,.9,.25,1) forwards;
+  }
+  @keyframes open-blade{
+    0%{ transform:scale(0.15) rotate(0deg); opacity:0;}
+    60%{opacity:1;}
+    100%{ transform:scale(1) rotate(38deg); opacity:1;}
+  }
+  .aperture-core{fill:var(--bg);stroke:var(--blue);stroke-width:1.4;opacity:0.9;}
+  .aperture-dot{fill:var(--red);animation:pulse 1.4s infinite;}
+
+  .hero h1{
+    font-size:clamp(2.4rem,7vw,4.6rem);
+    font-weight:800;
+    line-height:1.03;
+    letter-spacing:-0.01em;
+    background:linear-gradient(100deg,#f2f5ff 30%, var(--blue) 68%, #f2f5ff 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero-role{
+    margin-top:22px;height:1.6rem;
+    font-family:'JetBrains Mono',monospace;font-size:1rem;color:var(--text-mid);
+  }
+  .hero-role .cursor{color:var(--red);}
+  .hero-sub{
+    margin-top:26px;max-width:560px;color:var(--text-mid);font-size:1rem;line-height:1.7;
+  }
+  .hero-cta{display:flex;gap:16px;margin-top:42px;flex-wrap:wrap;justify-content:center;}
+
+  .btn{
+    font-family:'Sora',sans-serif;font-weight:600;font-size:0.88rem;
+    padding:15px 28px;border-radius:16px;cursor:pointer;border:none;
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--surface);color:var(--text);
+    box-shadow: 6px 6px 14px var(--shadow-dark), -6px -6px 14px var(--shadow-light);
+    transition:all .25s ease;
+  }
+  .btn:hover{box-shadow: inset 4px 4px 10px var(--shadow-dark), inset -4px -4px 10px var(--shadow-light); color:var(--blue);}
+  .btn-primary{color:var(--blue);border:1px solid rgba(0,229,255,0.25);}
+  .btn-primary:hover{box-shadow: inset 4px 4px 10px var(--shadow-dark), inset -4px -4px 10px var(--shadow-light), 0 0 18px rgba(0,229,255,0.25);}
+  .btn-red{color:var(--red);border:1px solid rgba(255,35,80,0.25);}
+  .btn-red:hover{box-shadow: inset 4px 4px 10px var(--shadow-dark), inset -4px -4px 10px var(--shadow-light), 0 0 18px rgba(255,35,80,0.25);}
+
+  .scroll-cue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);color:var(--text-dim);font-size:0.7rem;font-family:'JetBrains Mono',monospace;letter-spacing:0.15em;display:flex;flex-direction:column;align-items:center;gap:8px;}
+  .scroll-cue span{width:1px;height:30px;background:linear-gradient(var(--blue),transparent);animation:scrolldown 1.8s infinite;}
+  @keyframes scrolldown{0%{opacity:0;transform:scaleY(0);}30%{opacity:1;transform:scaleY(1);}100%{opacity:0;transform:scaleY(1);}}
+
+  /* ---------- sections generic ---------- */
+  section{padding:110px 0;position:relative;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.2em;
+    color:var(--blue);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:'';width:22px;height:1px;background:var(--blue);}
+  .sec-title{font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:700;margin-bottom:16px;}
+  .sec-desc{color:var(--text-mid);max-width:600px;line-height:1.7;margin-bottom:56px;font-size:0.98rem;}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- about ---------- */
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:start;}
+  .about-text{padding:36px;line-height:1.85;color:var(--text-mid);font-size:1rem;}
+  .about-text strong{color:var(--text);font-weight:600;}
+  .fact-list{display:flex;flex-direction:column;gap:14px;}
+  .fact{padding:18px 22px;display:flex;justify-content:space-between;align-items:center;font-size:0.88rem;}
+  .fact-label{color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;}
+  .fact-val{color:var(--text);font-weight:500;text-align:right;}
+
+  @media(max-width:800px){.about-grid{grid-template-columns:1fr;}}
+
+  /* ---------- experience timeline ---------- */
+  .timeline{display:flex;flex-direction:column;gap:26px;}
+  .tl-item{display:grid;grid-template-columns:170px 1fr;gap:28px;padding:30px 32px;}
+  .tl-period{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--blue);padding-top:2px;}
+  .tl-item.current .tl-period{color:var(--red);}
+  .tl-role{font-family:'Sora',sans-serif;font-weight:700;font-size:1.15rem;margin-bottom:4px;}
+  .tl-org{color:var(--text-mid);font-size:0.88rem;margin-bottom:16px;}
+  .tl-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;padding:4px 10px;border-radius:20px;margin-left:10px;color:var(--red);border:1px solid rgba(255,35,80,0.3);vertical-align:middle;}
+  .tl-list{list-style:none;color:var(--text-mid);font-size:0.92rem;line-height:1.9;}
+  .tl-list li{position:relative;padding-left:18px;}
+  .tl-list li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--blue);}
+
+  @media(max-width:700px){.tl-item{grid-template-columns:1fr;gap:8px;}}
+
+  /* ---------- expertise ---------- */
+  .expertise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .exp-card{padding:30px;}
+  .exp-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+  .exp-card h3{font-size:1.05rem;margin-bottom:16px;}
+  .chip-group{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text-mid);
+    padding:7px 12px;border-radius:9px;
+    box-shadow: inset 3px 3px 7px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light);
+  }
+  @media(max-width:800px){.expertise-grid{grid-template-columns:1fr;}}
+
+  /* ---------- tools ---------- */
+  .tools-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+  .tool-card{padding:26px 30px;}
+  .tool-card h4{font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:16px;}
+  @media(max-width:700px){.tools-grid{grid-template-columns:1fr;}}
+
+  /* ---------- education & languages ---------- */
+  .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;}
+  .edu-card{padding:28px 30px;}
+  .edu-card .deg{font-weight:700;font-family:'Sora',sans-serif;margin-bottom:6px;}
+  .edu-card .school{color:var(--text-mid);font-size:0.9rem;margin-bottom:12px;}
+  .edu-card .meta{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text-dim);}
+  .lang-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:24px;}
+  .lang-pill{padding:12px 20px;font-size:0.85rem;display:flex;gap:10px;align-items:center;}
+  .lang-pill b{color:var(--text);}
+  .lang-pill span{color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:0.72rem;}
+  @media(max-width:700px){.edu-grid{grid-template-columns:1fr;}}
+
+  /* ---------- portfolio ---------- */
+  .portfolio-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .port-card{
+    padding:38px;display:flex;flex-direction:column;justify-content:space-between;
+    min-height:220px;transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .port-card:hover{transform:translateY(-4px);}
+  .port-card.blue:hover{box-shadow: 8px 8px 18px var(--shadow-dark), -8px -8px 18px var(--shadow-light), 0 0 26px rgba(0,229,255,0.16);}
+  .port-card.red:hover{box-shadow: 8px 8px 18px var(--shadow-dark), -8px -8px 18px var(--shadow-light), 0 0 26px rgba(255,35,80,0.16);}
+  .port-top{display:flex;justify-content:space-between;align-items:flex-start;}
+  .port-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;}
+  .port-icon.blue{box-shadow: inset 3px 3px 8px var(--shadow-dark), inset -3px -3px 8px var(--shadow-light);color:var(--blue);}
+  .port-icon.red{box-shadow: inset 3px 3px 8px var(--shadow-dark), inset -3px -3px 8px var(--shadow-light);color:var(--red);}
+  .port-arrow{color:var(--text-dim);font-size:1.3rem;transition:transform .25s ease, color .25s ease;}
+  .port-card:hover .port-arrow{transform:translate(4px,-4px);}
+  .port-card.blue:hover .port-arrow{color:var(--blue);}
+  .port-card.red:hover .port-arrow{color:var(--red);}
+  .port-card h3{font-family:'Sora',sans-serif;font-size:1.3rem;margin-top:22px;margin-bottom:8px;}
+  .port-card p{color:var(--text-mid);font-size:0.88rem;}
+  @media(max-width:700px){.portfolio-grid{grid-template-columns:1fr;}}
+
+  /* ---------- footer ---------- */
+  footer{padding:80px 0 50px;text-align:center;}
+  .footer-inner{padding:56px 40px;}
+  footer h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:18px;}
+  footer p.lead{color:var(--text-mid);margin-bottom:36px;}
+  .contact-row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:44px;}
+  .contact-chip{padding:13px 22px;font-size:0.85rem;display:flex;align-items:center;gap:9px;}
+  .contact-chip svg{width:15px;height:15px;color:var(--blue);}
+  .foot-meta{color:var(--text-dim);font-size:0.75rem;font-family:'JetBrains Mono',monospace;}
+
+  .icon{width:18px;height:18px;stroke-width:1.8;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40">
+        <circle cx="20" cy="20" r="18" fill="none" stroke="#1a2136" stroke-width="2"/>
+        <circle cx="20" cy="20" r="18" fill="none" stroke="#00e5ff" stroke-width="2" stroke-dasharray="30 80" stroke-linecap="round"/>
+        <circle cx="20" cy="20" r="4" fill="#ff2350"/>
+      </svg>
+      EBENZ
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#expertise">Expertise</a></li>
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero" id="top">
+  <div class="rec-badge"><span class="rec-dot"></span> KANNUR, KERALA — AVAILABLE FOR WORK</div>
+
+  <div class="aperture-holder">
+    <svg viewBox="0 0 200 200">
+      <g>
+        <path class="blade" style="animation-delay:0s"   d="M100,100 L100,20 A80,80 0 0,1 169,60 Z"/>
+        <path class="blade" style="animation-delay:.05s" d="M100,100 L169,60 A80,80 0 0,1 169,140 Z"/>
+        <path class="blade" style="animation-delay:.1s"  d="M100,100 L169,140 A80,80 0 0,1 100,180 Z"/>
+        <path class="blade" style="animation-delay:.15s" d="M100,100 L100,180 A80,80 0 0,1 31,140 Z"/>
+        <path class="blade" style="animation-delay:.2s"  d="M100,100 L31,140 A80,80 0 0,1 31,60 Z"/>
+        <path class="blade" style="animation-delay:.25s" d="M100,100 L31,60 A80,80 0 0,1 100,20 Z"/>
+      </g>
+      <circle class="aperture-core" cx="100" cy="100" r="34"/>
+      <circle class="aperture-dot" cx="100" cy="100" r="6"/>
+    </svg>
+  </div>
+
+  <h1>Ebanse&nbsp;Jose&nbsp;Anil</h1>
+  <div class="hero-role mono"><span id="roleText">Creative Designer</span><span class="cursor">_</span></div>
+  <p class="hero-sub">Visual storyteller working across videography, editing and motion graphics — building a parallel foundation in computer science to bring a technical edge to creative work.</p>
+
+  <div class="hero-cta">
+    <a href="#portfolio" class="btn btn-primary">View Portfolio</a>
+    <a href="#contact" class="btn btn-red">Get in Touch</a>
+  </div>
+
+  <div class="scroll-cue"><span></span>SCROLL</div>
+</section>
+
+<div class="wrap">
+
+  <section id="about">
+    <div class="eyebrow reveal">01 — About</div>
+    <h2 class="sec-title reveal">Where the frame meets the code.</h2>
+    <div class="about-grid">
+      <div class="neu about-text reveal">
+        <p>Ebenz is a creative designer, videographer and editor based in Kannur, Kerala, currently in the first year of a <strong>BSc in Computer Science</strong> at St. Joseph's College, Devagiri. The work sits at the intersection of visual storytelling and technical craft — from motion graphics and poster design to the beginnings of frontend development.</p>
+      <br>
+      <p>As <strong>Creative Sub Lead</strong> at the Innovation and Entrepreneurship Development Centre (IEDC), Ebenz directs creative strategy for institutional campaigns, and independently runs a freelance editing practice serving individual and business clients across short-form and long-form video.</p>
+      </div>
+      <div class="fact-list reveal">
+        <div class="neu-inset fact"><span class="fact-label">Location</span><span class="fact-val">Kannur, Kerala, IN</span></div>
+        <div class="neu-inset fact"><span class="fact-label">Nationality</span><span class="fact-val">Indian</span></div>
+        <div class="neu-inset fact"><span class="fact-label">Languages</span><span class="fact-val">Malayalam · English</span></div>
+        <div class="neu-inset fact"><span class="fact-label">Focus</span><span class="fact-val">Video · Design · Code</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="eyebrow reveal">02 — Experience</div>
+    <h2 class="sec-title reveal">Work history</h2>
+    <p class="sec-desc reveal">Leading creative direction institutionally, while running an independent editing practice on the side.</p>
+    <div class="timeline">
+      <div class="neu tl-item current reveal">
+        <div class="tl-period">2025 — PRESENT</div>
+        <div>
+          <div class="tl-role">Creative Sub Lead <span class="tl-tag">CURRENT</span></div>
+          <div class="tl-org">Innovation and Entrepreneurship Development Centre (IEDC) · Training</div>
+          <ul class="tl-list">
+            <li>Lead creative direction for institutional campaigns and events</li>
+            <li>Develop visual content including posters, videos and motion graphics</li>
+            <li>Collaborate with cross-functional teams on entrepreneurship initiatives</li>
+          </ul>
+        </div>
+      </div>
+      <div class="neu tl-item current reveal">
+        <div class="tl-period">2023 — PRESENT</div>
+        <div>
+          <div class="tl-role">Freelance Editor <span class="tl-tag">CURRENT</span></div>
+          <div class="tl-org">Self-Employed · Freelance</div>
+          <ul class="tl-list">
+            <li>Private video and poster editing for individual and business clients</li>
+            <li>Edit short-form and long-form content for social media and personal use</li>
+            <li>Design promotional posters and visual assets using Photoshop and Canva</li>
+            <li>Manage client briefs from concept through to final delivery</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="expertise">
+    <div class="eyebrow reveal">03 — Expertise</div>
+    <h2 class="sec-title reveal">Areas of expertise</h2>
+    <p class="sec-desc reveal">Three lanes that feed into each other — creative output, distribution strategy, and the technical layer underneath.</p>
+    <div class="expertise-grid">
+      <div class="neu exp-card reveal">
+        <div class="exp-icon" style="box-shadow: inset 3px 3px 7px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light); color:var(--red);">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        </div>
+        <h3>Creative</h3>
+        <div class="chip-group">
+          <span class="chip">Videography</span><span class="chip">Video Editing</span><span class="chip">Graphic Design</span>
+          <span class="chip">Motion Graphics</span><span class="chip">Creative Direction</span><span class="chip">Visual Storytelling</span>
+        </div>
+      </div>
+      <div class="neu exp-card reveal">
+        <div class="exp-icon" style="box-shadow: inset 3px 3px 7px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light); color:var(--blue);">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        </div>
+        <h3>Digital Marketing</h3>
+        <div class="chip-group">
+          <span class="chip">Social Media Management</span><span class="chip">Content Strategy</span><span class="chip">Marketing</span>
+        </div>
+      </div>
+      <div class="neu exp-card reveal">
+        <div class="exp-icon" style="box-shadow: inset 3px 3px 7px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light); color:var(--blue);">
+          <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3>Technical</h3>
+        <div class="chip-group">
+          <span class="chip">Coding</span><span class="chip">Frontend Development</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tools">
+    <div class="eyebrow reveal">04 — Toolkit</div>
+    <h2 class="sec-title reveal">Software &amp; tools</h2>
+    <div class="tools-grid">
+      <div class="neu tool-card reveal">
+        <h4>Design &amp; Editing</h4>
+        <div class="chip-group">
+          <span class="chip">Adobe Photoshop</span><span class="chip">Adobe Premiere Pro</span><span class="chip">CapCut</span>
+          <span class="chip">Canva</span><span class="chip">Alight Motion</span><span class="chip">After Effects (beginner)</span>
+        </div>
+      </div>
+      <div class="neu tool-card reveal">
+        <h4>Programming</h4>
+        <div class="chip-group">
+          <span class="chip">Python</span><span class="chip">HTML5</span><span class="chip">CSS3</span>
+          <span class="chip">JavaScript</span><span class="chip">MySQL</span><span class="chip">C</span><span class="chip">R</span>
+        </div>
+      </div>
+      <div class="neu tool-card reveal">
+        <h4>Platforms</h4>
+        <div class="chip-group">
+          <span class="chip">Instagram</span><span class="chip">YouTube</span>
+        </div>
+      </div>
+      <div class="neu tool-card reveal">
+        <h4>Camera</h4>
+        <div class="chip-group">
+          <span class="chip">Sony A6700</span><span class="chip">Canon EOS 70D</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="eyebrow reveal">05 — Education</div>
+    <h2 class="sec-title reveal">Academic background</h2>
+    <div class="edu-grid">
+      <div class="neu edu-card reveal">
+        <div class="deg">BSc Computer Science — 1st Year</div>
+        <div class="school">St. Joseph's College, Devagiri · Umalathoor, Kozhikode, Kerala</div>
+        <div class="meta"><span>2025 — ONGOING</span><span>CGPA IN PROGRESS</span></div>
+      </div>
+      <div class="neu edu-card reveal">
+        <div class="deg">Senior Secondary — Computer Science (XII)</div>
+        <div class="school">Marygiri English Medium School · Sreekandapuram, Kannur, Kerala</div>
+        <div class="meta"><span>2023 — 2025</span><span>SCORE 84%</span></div>
+      </div>
+    </div>
+    <div class="lang-row reveal">
+      <div class="neu-inset lang-pill"><b>Malayalam</b><span>NATIVE</span></div>
+      <div class="neu-inset lang-pill"><b>English</b><span>FLUENT</span></div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="eyebrow reveal">06 — Portfolio</div>
+    <h2 class="sec-title reveal">See the work</h2>
+    <p class="sec-desc reveal">Edited reels, promo videos and behind-the-lens work — links below need a swap-in with the live URLs.</p>
+    <div class="portfolio-grid">
+      <a href="#" class="neu port-card blue reveal">
+        <div class="port-top">
+          <div class="port-icon blue">
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+          </div>
+          <span class="port-arrow">↗</span>
+        </div>
+        <div>
+          <h3>Video Editing Works</h3>
+          <p>Professional edits — hosted on Google Drive. Add your drive link here.</p>
+        </div>
+      </a>
+      <a href="https://instagram.com/benzeyyymaaa" target="_blank" rel="noopener" class="neu port-card red reveal">
+        <div class="port-top">
+          <div class="port-icon red">
+            <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+          </div>
+          <span class="port-arrow">↗</span>
+        </div>
+        <div>
+          <h3>Videography &amp; Camera Work</h3>
+          <p>@benzeyyymaaa — reels, camera work and behind-the-scenes on Instagram.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="neu footer-inner reveal">
+      <h2>Let's make something.</h2>
+      <p class="lead">Open to freelance editing work, creative direction, and collaborations.</p>
+      <div class="contact-row">
+        <a href="tel:+919446404229" class="neu-inset contact-chip">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +91 94464 04229
+        </a>
+        <a href="mailto:ebunzjose@gmail.com" class="neu-inset contact-chip">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          ebunzjose@gmail.com
+        </a>
+        <a href="https://instagram.com/_ebenz_" target="_blank" rel="noopener" class="neu-inset contact-chip">
+          <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+          @_ebenz_
+        </a>
+      </div>
+      <div class="foot-meta">EBANSE JOSE ANIL · KANNUR, KERALA, INDIA · © 2026</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // mobile nav close on link click
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.addEventListener('click', ()=> document.querySelector('.nav-links').classList.remove('open'));
+  });
+
+  // role ticker
+  const roles = ["Creative Designer","Videographer","Video Editor","Social Media Manager"];
+  let ri = 0;
+  const roleEl = document.getElementById('roleText');
+  setInterval(()=>{
+    ri = (ri+1) % roles.length;
+    roleEl.style.opacity = 0;
+    setTimeout(()=>{ roleEl.textContent = roles[ri]; roleEl.style.opacity = 1; }, 250);
+  }, 2400);
+  roleEl.style.transition = 'opacity .25s ease';
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+  // reduced motion respect
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.blade, .rec-dot, .aperture-dot, .scroll-cue span').forEach(el=>{
+      el.style.animation = 'none';
+    });
+  }
+</script>
+
+</body>
+</html>
